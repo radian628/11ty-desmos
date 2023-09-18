@@ -20,7 +20,7 @@ Uses [Text Mode](https://www.desmodder.com/text-mode/) syntax for easy editing i
 a + b = 2
 {% enddesmos%}
 
-# Text Mode Graphstate Embed
+# Graphstate Embed
 
 Embed an entire Desmos graph state JSON object. This object is returned by [Calc.getState](https://www.desmos.com/api/v1.8/docs/index.html#document-saving-and-loading).
 
