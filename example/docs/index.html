@@ -4,7 +4,6 @@
 <script defer>
 window.addEventListener("load", () => {
   for (const e of document.getElementsByClassName("eleventy-desmos-mq-container")) {  
-    console.log("found staticmath", e);    
     const staticMath = Desmos.MathQuill.StaticMath(e);
     staticMath.latex(e.dataset.latex);
     e.querySelector(".dcg-mq-root-block").style.display = "inline";
@@ -14,9 +13,9 @@ window.addEventListener("load", () => {
       const copyButton = document.createElement("button");
       copyButton.classList.toggle("eleventy-desmos-copy-button", true);
       copyButton.innerText = "Copy to Clipboard"
-      rootblock.appendChild(copyButton);
+      e.parentElement.appendChild(copyButton);
       copyButton.onclick = () => {
-        navigator.clipboard.writeText(content);
+        navigator.clipboard.writeText(e.dataset.latex);
         copyButton.innerText = "Copied!";
         setTimeout(() => {
           copyButton.innerHTML = "Copy to Clipboard";
@@ -43,12 +42,14 @@ window.addEventListener("load", () => {
 </style>
 <h1>Text Mode Desmos Embed</h1>
 <p>Uses <a href="https://www.desmodder.com/text-mode/">Text Mode</a> syntax for easy editing in plaintext.</p>
+<p>Supports a settings object that mirrors the one returned by <a href="https://www.desmos.com/api/v1.8/docs/index.html#document-calculator">Desmos.GraphingCalculator</a>.</p>
 <div class="eleventy-desmos-dcg-container"
       data-state="{&quot;version&quot;:9,&quot;graph&quot;:{&quot;viewport&quot;:{&quot;xmin&quot;:-10,&quot;xmax&quot;:10,&quot;ymin&quot;:-10,&quot;ymax&quot;:10}},&quot;expressions&quot;:{&quot;list&quot;:[{&quot;id&quot;:&quot;1&quot;,&quot;secret&quot;:false,&quot;type&quot;:&quot;expression&quot;,&quot;color&quot;:&quot;#c74440&quot;,&quot;hidden&quot;:false,&quot;latex&quot;:&quot;\\left\\{y&gt;x,0\\right\\}&gt;0.5&quot;,&quot;regressionParameters&quot;:{},&quot;slider&quot;:{&quot;hardMin&quot;:false,&quot;hardMax&quot;:false},&quot;displayEvaluationAsFraction&quot;:false,&quot;vizProps&quot;:{}},{&quot;id&quot;:&quot;2&quot;,&quot;secret&quot;:false,&quot;type&quot;:&quot;expression&quot;,&quot;color&quot;:&quot;#2d70b3&quot;,&quot;hidden&quot;:false,&quot;latex&quot;:&quot;a+b=2&quot;,&quot;regressionParameters&quot;:{},&quot;slider&quot;:{&quot;hardMin&quot;:false,&quot;hardMax&quot;:false},&quot;displayEvaluationAsFraction&quot;:false,&quot;vizProps&quot;:{}}]}}"
-      data-settings="&quot;{}&quot;"
+      data-settings="{}"
     ></div>
 <h1>Graphstate Embed</h1>
 <p>Embed an entire Desmos graph state JSON object. This object is returned by <a href="https://www.desmos.com/api/v1.8/docs/index.html#document-saving-and-loading">Calc.getState</a>.</p>
+<p>Supports the same settings object</p>
 <div class="eleventy-desmos-dcg-container"
       data-state="&quot;\r\n{\&quot;version\&quot;:10,\&quot;randomSeed\&quot;:\&quot;a4de9b56314e126dc047a1e3754ed355\&quot;,\&quot;graph\&quot;:{\&quot;viewport\&quot;:{\&quot;xmin\&quot;:-10,\&quot;ymin\&quot;:-11.705358976677651,\&quot;xmax\&quot;:10,\&quot;ymax\&quot;:11.705358976677651}},\&quot;expressions\&quot;:{\&quot;list\&quot;:[{\&quot;type\&quot;:\&quot;expression\&quot;,\&quot;id\&quot;:\&quot;9\&quot;,\&quot;color\&quot;:\&quot;#c74440\&quot;,\&quot;latex\&quot;:\&quot;y=x\&quot;},{\&quot;type\&quot;:\&quot;expression\&quot;,\&quot;id\&quot;:\&quot;10\&quot;,\&quot;color\&quot;:\&quot;#2d70b3\&quot;}]}}\r\n&quot;"
       data-settings="{}"
@@ -56,6 +57,8 @@ window.addEventListener("load", () => {
 <h1>Text Mode MathQuill:</h1>
 <p>Uses <a href="https://www.desmodder.com/text-mode/">Text Mode</a> syntax for easy editing in plaintext.</p>
 <p><span class="dcg-calculator-api-container"><span class="eleventy-desmos-mq-container dcg-mq-math-mode" data-latex="y=x" data-settings="{}"></span></span></p>
+<p>Use the second parameter to add a button that copies the expression to your clipboard.</p>
+<p><span class="dcg-calculator-api-container"><span class="eleventy-desmos-mq-container dcg-mq-math-mode" data-latex="y=x^{2}" data-settings="{ &quot;copyButton&quot;: true }"></span></span></p>
 <p>The equations can be inline too: <span class="dcg-calculator-api-container"><span class="eleventy-desmos-mq-container dcg-mq-math-mode" data-latex="y=x" data-settings="{}"></span></span> &lt;-- See?</p>
 <h1>LaTeX MathQuill:</h1>
 <p>Text Mode not flexible enough? You can write raw LaTeX</p>

@@ -15,6 +15,8 @@ Make sure to include the desmosSupport shortcode in any page that uses this plug
 
 Uses [Text Mode](https://www.desmodder.com/text-mode/) syntax for easy editing in plaintext.
 
+Supports a settings object that mirrors the one returned by [Desmos.GraphingCalculator](https://www.desmos.com/api/v1.8/docs/index.html#document-calculator).
+
 {% desmos "{}" %}
 { y > x: 1, 0 } > 0.5;
 a + b = 2
@@ -23,6 +25,8 @@ a + b = 2
 # Graphstate Embed
 
 Embed an entire Desmos graph state JSON object. This object is returned by [Calc.getState](https://www.desmos.com/api/v1.8/docs/index.html#document-saving-and-loading).
+
+Supports the same settings object
 
 {% graphstate %}
 {"version":10,"randomSeed":"a4de9b56314e126dc047a1e3754ed355","graph":{"viewport":{"xmin":-10,"ymin":-11.705358976677651,"xmax":10,"ymax":11.705358976677651}},"expressions":{"list":[{"type":"expression","id":"9","color":"#c74440","latex":"y=x"},{"type":"expression","id":"10","color":"#2d70b3"}]}}
@@ -33,6 +37,10 @@ Embed an entire Desmos graph state JSON object. This object is returned by [Calc
 Uses [Text Mode](https://www.desmodder.com/text-mode/) syntax for easy editing in plaintext.
 
 {% mq "y=x" %}
+
+Use the second parameter to add a button that copies the expression to your clipboard.
+
+{% mq "y=x^2" '{ "copyButton": true }' %}
 
 The equations can be inline too: {% mq "y=x" %} &lt;-- See?
 

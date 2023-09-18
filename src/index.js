@@ -8,7 +8,6 @@ module.exports = function (eleventyConfig) {
 <script defer>
 window.addEventListener("load", () => {
   for (const e of document.getElementsByClassName("eleventy-desmos-mq-container")) {  
-    console.log("found staticmath", e);    
     const staticMath = Desmos.MathQuill.StaticMath(e);
     staticMath.latex(e.dataset.latex);
     e.querySelector(".dcg-mq-root-block").style.display = "inline";
@@ -18,9 +17,9 @@ window.addEventListener("load", () => {
       const copyButton = document.createElement("button");
       copyButton.classList.toggle("eleventy-desmos-copy-button", true);
       copyButton.innerText = "Copy to Clipboard"
-      rootblock.appendChild(copyButton);
+      e.parentElement.appendChild(copyButton);
       copyButton.onclick = () => {
-        navigator.clipboard.writeText(content);
+        navigator.clipboard.writeText(e.dataset.latex);
         copyButton.innerText = "Copied!";
         setTimeout(() => {
           copyButton.innerHTML = "Copy to Clipboard";
@@ -50,17 +49,13 @@ window.addEventListener("load", () => {
 
     return `<span class="dcg-calculator-api-container"><span class="eleventy-desmos-mq-container dcg-mq-math-mode" data-latex="${encode(
       raw[1].expressions.list[0].latex
-    )}" data-settings="${encode(
-      JSON.stringify(settings ?? {})
-    )}"></span></span>`;
+    )}" data-settings="${encode(settings ?? "{}")}"></span></span>`;
   });
 
   eleventyConfig.addShortcode("latex", async (state, settings) => {
     return `<span class="dcg-calculator-api-container"><span class="eleventy-desmos-mq-container dcg-mq-math-mode" data-latex="${encode(
       state
-    )}" data-settings="${encode(
-      JSON.stringify(settings ?? {})
-    )}"></span></span>`;
+    )}" data-settings="${encode(settings ?? "{}")}"></span></span>`;
   });
 
   eleventyConfig.addPairedShortcode("desmos", async (state, settings) => {
@@ -71,14 +66,14 @@ window.addEventListener("load", () => {
 
     return `<div class="eleventy-desmos-dcg-container"
       data-state="${encode(JSON.stringify(raw[1]))}"
-      data-settings="${encode(JSON.stringify(settings ?? {}))}"
+      data-settings="${encode(settings ?? "{}")}"
     ></div>`;
   });
 
   eleventyConfig.addPairedShortcode("graphstate", async (state, settings) => {
     return `<div class="eleventy-desmos-dcg-container"
       data-state="${encode(JSON.stringify(state ?? {}))}"
-      data-settings="${encode(JSON.stringify(settings ?? {}))}"
+      data-settings="${encode(settings ?? "{}")}"
     ></div>`;
   });
 };
