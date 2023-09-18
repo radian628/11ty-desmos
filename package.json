@@ -1,0 +1,23 @@
+{
+  "name": "11ty-desmos",
+  "version": "0.1.0",
+  "description": "Include Desmos graphs in your 11ty site. Credit to Desmos Studio PBC for creating Desmos Graphing Calculator.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "example": "cd example && npx @11ty/eleventy --serve"
+  },
+  "keywords": [
+    "desmos",
+    "11ty"
+  ],
+  "author": "radian628",
+  "license": "MIT",
+  "dependencies": {
+    "@desmodder/text-mode-core": "^0.1.1",
+    "html-entities": "^2.4.0"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1"
+  }
+}

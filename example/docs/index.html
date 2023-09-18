@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<script src="https://www.desmos.com/api/v1.8/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+<script defer>
+window.addEventListener("load", () => {
+  for (const e of document.getElementsByClassName("eleventy-desmos-mq-container")) {  
+    console.log("found staticmath", e);    
+    const staticMath = Desmos.MathQuill.StaticMath(e);
+    staticMath.latex(e.dataset.latex);
+    e.querySelector(".dcg-mq-root-block").style.display = "inline";
+
+    const settings = JSON.parse(e.dataset.settings);
+    if (settings.copyButton) {
+      const copyButton = document.createElement("button");
+      copyButton.classList.toggle("eleventy-desmos-copy-button", true);
+      copyButton.innerText = "Copy to Clipboard"
+      rootblock.appendChild(copyButton);
+      copyButton.onclick = () => {
+        navigator.clipboard.writeText(content);
+        copyButton.innerText = "Copied!";
+        setTimeout(() => {
+          copyButton.innerHTML = "Copy to Clipboard";
+        }, 750);
+      }
+    }
+  }
+
+  for (const e of document.getElementsByClassName("eleventy-desmos-dcg-container")) {
+    const observer = new IntersectionObserver(() => {
+      const Calc = Desmos.GraphingCalculator(e, JSON.parse(e.dataset.settings));
+      Calc.setState(JSON.parse(e.dataset.state))
+      observer.disconnect()
+    });
+    observer.observe(e);
+  }
+
+})</script>
+<style>
+
+.eleventy-desmos-dcg-container {
+  height: 30vh;
+}
+</style>
+<h1>Text Mode test:</h1>
+<p><span class="dcg-calculator-api-container"><span class="eleventy-desmos-mq-container dcg-mq-math-mode" data-latex="y=x" data-settings="{}"></span></span></p>
+<p>The equations can be inline too: <span class="dcg-calculator-api-container"><span class="eleventy-desmos-mq-container dcg-mq-math-mode" data-latex="y=x" data-settings="{}"></span></span> &lt;-- See?</p>
+<h1>LaTeX test:</h1>
+<p><span class="dcg-calculator-api-container"><span class="eleventy-desmos-mq-container dcg-mq-math-mode" data-latex="f\left(x\right)=3" data-settings="{}"></span></span></p>
+<h1>Text Mode Desmos Embed</h1>
+<div class="eleventy-desmos-dcg-container"
+      data-state="{&quot;version&quot;:9,&quot;graph&quot;:{&quot;viewport&quot;:{&quot;xmin&quot;:-10,&quot;xmax&quot;:10,&quot;ymin&quot;:-10,&quot;ymax&quot;:10}},&quot;expressions&quot;:{&quot;list&quot;:[{&quot;id&quot;:&quot;1&quot;,&quot;secret&quot;:false,&quot;type&quot;:&quot;expression&quot;,&quot;color&quot;:&quot;#c74440&quot;,&quot;hidden&quot;:false,&quot;latex&quot;:&quot;\\left\\{y&gt;x,0\\right\\}&gt;0.5&quot;,&quot;regressionParameters&quot;:{},&quot;slider&quot;:{&quot;hardMin&quot;:false,&quot;hardMax&quot;:false},&quot;displayEvaluationAsFraction&quot;:false,&quot;vizProps&quot;:{}},{&quot;id&quot;:&quot;2&quot;,&quot;secret&quot;:false,&quot;type&quot;:&quot;expression&quot;,&quot;color&quot;:&quot;#2d70b3&quot;,&quot;hidden&quot;:false,&quot;latex&quot;:&quot;a+b=2&quot;,&quot;regressionParameters&quot;:{},&quot;slider&quot;:{&quot;hardMin&quot;:false,&quot;hardMax&quot;:false},&quot;displayEvaluationAsFraction&quot;:false,&quot;vizProps&quot;:{}}]}}"
+      data-settings="&quot;{}&quot;"
+    ></div>
+<h1>Text Mode Graphstate Embed</h1>
+<div class="eleventy-desmos-dcg-container"
+      data-state="&quot;\r\n{\&quot;version\&quot;:10,\&quot;randomSeed\&quot;:\&quot;a4de9b56314e126dc047a1e3754ed355\&quot;,\&quot;graph\&quot;:{\&quot;viewport\&quot;:{\&quot;xmin\&quot;:-10,\&quot;ymin\&quot;:-11.705358976677651,\&quot;xmax\&quot;:10,\&quot;ymax\&quot;:11.705358976677651}},\&quot;expressions\&quot;:{\&quot;list\&quot;:[{\&quot;type\&quot;:\&quot;expression\&quot;,\&quot;id\&quot;:\&quot;9\&quot;,\&quot;color\&quot;:\&quot;#c74440\&quot;,\&quot;latex\&quot;:\&quot;y=x\&quot;},{\&quot;type\&quot;:\&quot;expression\&quot;,\&quot;id\&quot;:\&quot;10\&quot;,\&quot;color\&quot;:\&quot;#2d70b3\&quot;}]}}\r\n&quot;"
+      data-settings="{}"
+    ></div>

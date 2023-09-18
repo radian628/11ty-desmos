@@ -1,0 +1,35 @@
+<script src="https://www.desmos.com/api/v1.8/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+<p>Standalone test:</p>
+<p><span></span></p>
+<script>{const staticMathContainer = document.currentScript.previousElementSibling;
+    const rootblock = document.createElement("span");
+    staticMathContainer.classList.toggle("dcg-calculator-api-container", true);
+    staticMathContainer.style.display = "inline";
+    staticMathContainer.classList.toggle("11ty-desmos-mq-container", true);
+    rootblock.classList.toggle("dcg-mq-root-block", true);
+    staticMathContainer.appendChild(rootblock);
+    const staticMath = Desmos.MathQuill.StaticMath(rootblock);
+    staticMath.latex(String.raw`y=x`);
+    
+}
+</script>
+<p>Does this equation
+<span></span></p>
+<script>{const staticMathContainer = document.currentScript.previousElementSibling;
+    const rootblock = document.createElement("span");
+    staticMathContainer.classList.toggle("dcg-calculator-api-container", true);
+    staticMathContainer.style.display = "inline";
+    staticMathContainer.classList.toggle("11ty-desmos-mq-container", true);
+    rootblock.classList.toggle("dcg-mq-root-block", true);
+    staticMathContainer.appendChild(rootblock);
+    const staticMath = Desmos.MathQuill.StaticMath(rootblock);
+    staticMath.latex(String.raw`y=x`);
+    
+}
+</script>
+<p>show up in inline properly?</p>
+<!-- <div></div>
+<script defer>
+  var elt = document.currentScript.previousElementChild;
+  var calculator = Desmos.GraphingCalculator(elt);
+</script> -->
