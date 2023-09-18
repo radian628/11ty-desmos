@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-Make sure to include the desmosSupport shortcode in any page that uses this plugin. You can put this in a template if a bunch of pages need it.
+Make sure to include the desmosSupport shortcode in any page that uses this plugin. You can put this in a template if a bunch of pages need it. Remember to include an API key! The API key below is the Development key, so don't use it in production unless you have permission!
 
 {% desmosSupport "dcb31709b452b1cf9dc26972add0fda6" %}
 
