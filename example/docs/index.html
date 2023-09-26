@@ -25,12 +25,13 @@ window.addEventListener("load", () => {
   }
 
   for (const e of document.getElementsByClassName("eleventy-desmos-dcg-container")) {
-    const observer = new IntersectionObserver(() => {
+    const observer = new IntersectionObserver((entries, observer) => {
+      if (!Array.from(entries).some(e => e.isIntersecting)) return;
       const Calc = Desmos.GraphingCalculator(e, JSON.parse(e.dataset.settings));
       Calc.setState(JSON.parse(e.dataset.state))
       observer.disconnect()
     });
-    observer.observe(e);
+    observer.observe(e, { threshold: 0.01 });
   }
 
 })</script>
