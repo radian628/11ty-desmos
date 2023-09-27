@@ -42,22 +42,31 @@ window.addEventListener("load", () => {
     `;
   });
 
+  function createMathquillHTML(latex, settings) {
+    return `<span class="dcg-calculator-api-container"><span class="eleventy-desmos-mq-container dcg-mq-math-mode" data-latex="${encode(
+      latex
+    )}" data-settings="${encode(settings ?? "{}")}"></span></span>`;
+  }
+
   eleventyConfig.addShortcode("mq", async (state, settings) => {
     const tm = await import("@desmodder/text-mode-core");
 
     const cfg = tm.buildConfig({});
     const raw = tm.textToRaw(cfg, state);
 
-    return `<span class="dcg-calculator-api-container"><span class="eleventy-desmos-mq-container dcg-mq-math-mode" data-latex="${encode(
-      raw[1].expressions.list[0].latex
-    )}" data-settings="${encode(settings ?? "{}")}"></span></span>`;
+    return createMathquillHTML(raw[1].expressions.list[0].latex, settings);
   });
 
   eleventyConfig.addShortcode("latex", async (state, settings) => {
-    return `<span class="dcg-calculator-api-container"><span class="eleventy-desmos-mq-container dcg-mq-math-mode" data-latex="${encode(
-      state
-    )}" data-settings="${encode(settings ?? "{}")}"></span></span>`;
+    return createMathquillHTML(state, settings);
   });
+
+  function createDesmosHTML(state, settings) {
+    return `<div class="eleventy-desmos-dcg-container"
+      data-state="${encode(state)}"
+      data-settings="${encode(settings ?? "{}")}"
+    ></div>`;
+  }
 
   eleventyConfig.addPairedShortcode("desmos", async (state, settings) => {
     const tm = await import("@desmodder/text-mode-core");
@@ -65,16 +74,18 @@ window.addEventListener("load", () => {
     const cfg = tm.buildConfig({});
     const raw = tm.textToRaw(cfg, state);
 
-    return `<div class="eleventy-desmos-dcg-container"
-      data-state="${encode(JSON.stringify(raw[1]))}"
-      data-settings="${encode(settings ?? "{}")}"
-    ></div>`;
+    let lockViewport = true;
+
+    if (settings) {
+      lockViewport = JSON.parse(settings).lockViewport ?? true;
+    }
+
+    raw[1].graph.userLockedViewport = lockViewport;
+
+    return createDesmosHTML(JSON.stringify(raw[1]), settings);
   });
 
   eleventyConfig.addPairedShortcode("graphstate", async (state, settings) => {
-    return `<div class="eleventy-desmos-dcg-container"
-      data-state="${encode(JSON.stringify(state ?? {}))}"
-      data-settings="${encode(settings ?? "{}")}"
-    ></div>`;
+    return createDesmosHTML(JSON.stringify(state), settings);
   });
 };

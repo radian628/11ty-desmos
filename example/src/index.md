@@ -15,9 +15,9 @@ Make sure to include the desmosSupport shortcode in any page that uses this plug
 
 Uses [Text Mode](https://www.desmodder.com/text-mode/) syntax for easy editing in plaintext.
 
-Supports a settings object that mirrors the one returned by [Desmos.GraphingCalculator](https://www.desmos.com/api/v1.8/docs/index.html#document-calculator).
+Supports a settings object that mirrors the one returned by [Desmos.GraphingCalculator](https://www.desmos.com/api/v1.8/docs/index.html#document-calculator). The only major difference between this and the default calculator is that viewport locking is enabled by default. This is to prevent graph zooming from interrupting scrolling through an article.
 
-{% desmos "{}" %}
+{% desmos '{ "lockViewport": false }' %}
 { y > x: 1, 0 } > 0.5;
 a + b = 2
 {% enddesmos%}
