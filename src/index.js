@@ -8,7 +8,7 @@ module.exports = function (eleventyConfig) {
 <script defer>
 window.addEventListener("load", () => {
   for (const e of document.getElementsByClassName("eleventy-desmos-mq-container")) {  
-    const staticMath = Desmos.MathQuill.StaticMath(e);
+    var staticMath = Desmos.MathQuill.StaticMath(e);
     staticMath.latex(e.dataset.latex);
     e.querySelector(".dcg-mq-root-block").style.display = "inline";
 
